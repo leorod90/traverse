@@ -8,6 +8,7 @@ const colors = require('colors')
 const bootcamps = require('./routes/bootcamp')
 const courses = require('./routes/courses')
 const fileUpload = require('express-fileupload')
+const path = require('path');
 
 //Load ENV
 dotenv.config({ path: './config/config.env' })
@@ -26,6 +27,7 @@ if (ENV === 'development') {
 
 app.use(logger)
 app.use(fileUpload())
+app.use(express.static(path.join(__dirname, 'public')))
 
 app.use('/api/v1/bootcamps', bootcamps)
 app.use('/api/v1/courses', courses)
