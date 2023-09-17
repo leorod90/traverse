@@ -109,7 +109,7 @@ exports.createSingleBootcamp = asyncHandler(async (req, res, next) => {
 // @routes     PUT /api/v1/bootcamps/:id
 // @access     Private   
 exports.updateSelectedBootcamp = asyncHandler(async (req, res, next) => {
-  const { body } = params
+  const { body } = req.params
   const { id } = req.params
 
   const bootcamp = await Bootcamp.findByIdAndUpdate(id, body, {
@@ -179,15 +179,14 @@ exports.getBootcampsInRadius = asyncHandler(async (req, res, next) => {
 // @routes     PU /api/v1/bootcamps/:id/photo
 // @access     Private   
 exports.uploadBootcampPhoto = asyncHandler(async (req, res, next) => {
-  console.log('erere')
-  // const { bootcampId } = req.params
+  const { bootcampId } = req.params
 
-  // const bootcamp = await Bootcamp.findOne({ _id: bootcampId });
-  // if (!bootcamp) {
-  //   throw new Error
-  // }
+  const bootcamp = await Bootcamp.findOne({ _id: bootcampId });
+  if (!bootcamp) {
+    throw new Error
+  }
 
-  // if (!req.files) {
-  //   return next(new ErrorResponse(`Please upload a photo`))
-  // }
+  if (!req.files) {
+    return next(new ErrorResponse(`Please upload a photo`))
+  }
 })
